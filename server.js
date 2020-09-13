@@ -6,6 +6,7 @@ const articlesRouter = require("./routes/articles");
 // Ejs for markdown
 app.set("view engine", "ejs");
 
+
 // add css
 app.use(express.static(path.join(__dirname, "client")));
 
@@ -28,7 +29,7 @@ app.get("/", (req, res) => {
       description: "Deserunt deserunt magna dolor sunt culpa reprehenderit.",
     },
   ];
-  res.render("index.ejs", { articles: articles });
+  res.render("articles/index.ejs", { articles: articles });
 });
 
 // about me section

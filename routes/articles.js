@@ -1,8 +1,13 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
+const path = require("path");
 
-router.get("/", (req, res) => {
-  res.send("articles  ?");
+// Add new article
+router.get("/new", (req, res) => {
+  res.render("articles/new");
 });
+
+
 
 module.exports = router;
