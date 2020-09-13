@@ -1,0 +1,86 @@
+:root {
+  --bg-main: hsl(204, 40%, 57%);
+  --bg-sc: white;
+  --txt-sc: white;
+  --txt-pm: hsl(204, 40%, 57%);
+  --clr-dark: #1c1a63;
+  /* #47d381; */
+  /* hsl(187, 63%, 71%); */
+}
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.header {
+  font-weight: bold;
+  color: white;
+  font-size: 4rem;
+  padding: 1rem;
+  /* margin-left: 1rem; */
+  text-align: center;
+}
+
+.sub-header {
+  font-weight: bold;
+  color: var(--clr-dark);
+  font-size: 1rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  background-color: var(--bg-main);
+  position: fixed;
+  height: 100%;
+
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: var(--txt-sc);
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #1c1a63;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: var(--bg-sc);
+  color: var(--clr-dark);
+}
+
+div.content {
+  margin-left: 300px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {
+    float: left;
+  }
+  div.content {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
