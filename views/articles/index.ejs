@@ -7,41 +7,50 @@
     <title>Arjun Kashyap</title>
   </head>
   <body>
-    <div class="sidebar">
-      <h1 class="header">Arjun Kashyap</h1>
-      <h4 class="sub-header">
-        Software Engineer <br />
-        ML Enthusiast <br />
-        Reader / Thinkers
-      </h4>
-      <hr />
-      <a class="active" href="#home">Blog</a>
-      <a href="#news">About Me</a>
-      <a href="#contact">Projects</a>
-    </div>
+    <div style="overflow: hidden">
+      <div class="sidebar">
+        <h1 class="header">Arjun Kashyap</h1>
+        <h4 class="sub-header">
+          Software Engineer <br />
+          ML Enthusiast <br />
+          Reader / Thinkers
+        </h4>
+        <hr />
+        <a class="active" href="#home">Blog</a>
+        <a href="#news">About Me</a>
+        <a href="#contact">Projects</a>
+      </div>
 
-    <div class="content container">
-      <br />
-      <a href="/articles/new">here</a>
-      <% articles.forEach(article => {%>
-      <a
-        href="/articles/<%=article.slug %>"
-        style="text-decoration: none; color: inherit"
-      >
-        <div class="card mt-4">
-          <div class="card-body">
-            <h1 class="blog-title"><%= article.title %></h1>
+      <div class="content container">
+        <br />
+        <a href="/articles/new">here</a>
+        <% articles.forEach(article => {%>
+        <a
+          href="/articles/<%=article.slug %>"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="card mt-4">
+            <div class="card-body">
+              <h1 class="blog-title"><%= article.title %></h1>
 
-            <div class="card-subtitle text-muted mb-2">
-              <%= article.date.toLocaleDateString() %>
+              <div class="card-subtitle text-muted mb-2">
+                <%= article.date.toLocaleDateString() %>
+              </div>
+
+              <div class="card-text mb-2"><%= article.description %></div>
+              <form
+                action="/articles/<%= article.id %>?_method=DELETE"
+                method="POST"
+                class="d-inline"
+              >
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
             </div>
-
-            <div class="card-text mb-2"><%= article.description %></div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <% }) %>
+        <% }) %>
+      </div>
     </div>
 
     <!-- Bootstrap css -->

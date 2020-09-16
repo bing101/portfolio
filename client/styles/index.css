@@ -31,14 +31,14 @@ body {
 }
 
 .sidebar {
-  margin: 0;
   padding: 0;
   width: 350px;
   background-color: var(--bg-main);
   /* position: fixed; */
-  height: 800px;
+  height: 100%;
   float: left;
-  overflow: auto;
+  margin-bottom: -5000px; /* any large number will do */
+  padding-bottom: 5000px;
 }
 
 .sidebar a {
@@ -82,11 +82,13 @@ div.content {
   color: var(--clr-dark);
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
   .sidebar {
     width: 100%;
     height: auto;
     position: relative;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
   .sidebar a {
     float: left;

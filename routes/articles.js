@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const Article = require("../models/article");
+const { findByIdAndDelete } = require("../models/article");
 
 // connect to db
 mongoose.connect("mongodb://localhost/blog", {
@@ -35,6 +36,12 @@ router.post("/", async (req, res) => {
     console.log("Error");
     res.render("articles/new", { article: article });
   }
+});
+
+// deleting an article
+router.delete("/:id", async (req, res) => {
+  await Article.findByIdAndDelete(req.params.id);
+  res.redirect("/");
 });
 
 module.exports = router;

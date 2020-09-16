@@ -3,12 +3,14 @@ const app = express();
 const path = require("path");
 const articlesRouter = require("./routes/articles");
 const Article = require("./models/article");
+const methodOverride = require("method-override");
 
 // Ejs for markdown
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "client")));
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
 
 // home page
 app.get("/", async (req, res) => {
