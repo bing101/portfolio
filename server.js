@@ -2,33 +2,17 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const articlesRouter = require("./routes/articles");
+const Article = require("./models/article");
 
 // Ejs for markdown
 app.set("view engine", "ejs");
 
-
-// add css
 app.use(express.static(path.join(__dirname, "client")));
+app.use(express.urlencoded({ extended: false }));
 
 // home page
-app.get("/", (req, res) => {
-  const articles = [
-    {
-      title: "First Article",
-      date: new Date(),
-      description: "Deserunt deserunt magna dolor sunt culpa reprehenderit.",
-    },
-    {
-      title: "Second Article",
-      date: new Date(),
-      description: "Deserunt deserunt magna dolor sunt culpa reprehenderit.",
-    },
-    {
-      title: "Another Article",
-      date: new Date(),
-      description: "Deserunt deserunt magna dolor sunt culpa reprehenderit.",
-    },
-  ];
+app.get("/", async (req, res) => {
+  const articles = await Article.find().sort({ date: "desc" }); // Get all articles in the db
   res.render("articles/index.ejs", { articles: articles });
 });
 

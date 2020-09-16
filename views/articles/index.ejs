@@ -22,18 +22,24 @@
 
     <div class="content container">
       <br />
-
+      <a href="/articles/new">here</a>
       <% articles.forEach(article => {%>
-      <div class="card mt-4">
-        <div class="card-body">
-          <%= article.title %>
-          <div class="card-subtitle text-muted mb-2">
-            <%= article.date.toLocaleDateString() %>
-          </div>
+      <a
+        href="/articles/<%=article.id %>"
+        style="text-decoration: none; color: inherit"
+      >
+        <div class="card mt-4">
+          <div class="card-body">
+            <h1 class="blog-title"><%= article.title %></h1>
 
-          <div class="card-text mb-2"><%= article.description %></div>
+            <div class="card-subtitle text-muted mb-2">
+              <%= article.date.toLocaleDateString() %>
+            </div>
+
+            <div class="card-text mb-2"><%= article.description %></div>
+          </div>
         </div>
-      </div>
+      </a>
 
       <% }) %>
     </div>
