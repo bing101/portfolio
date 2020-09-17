@@ -23,9 +23,9 @@ body {
 }
 
 .sub-header {
-  font-weight: bold;
-  color: var(--clr-dark);
-  font-size: 1rem;
+  /* font-weight: bold; */
+  color: var(--txt-sc);
+  font-size: 0.8rem;
   text-align: center;
   font-style: italic;
 }

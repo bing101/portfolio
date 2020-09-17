@@ -1,6 +1,13 @@
 <div class="form-group">
   <label for="title">Title</label>
-  <input required type="text" name="title" id="title" class="form-control" />
+  <input
+    required
+    type="text"
+    name="title"
+    id="title"
+    class="form-control"
+    value="<%=article.title %>"
+  />
 </div>
 
 <div class="form-group">
@@ -11,7 +18,10 @@
     name="description"
     id="description"
     class="form-control"
-  ></textarea>
+  >
+  <%=article.description %>
+</textarea
+  >
 </div>
 
 <div class="form-group">
@@ -24,6 +34,7 @@
     id="markdown"
     class="form-control"
   >
+  <%=article.markdown %>
   </textarea>
 </div>
 

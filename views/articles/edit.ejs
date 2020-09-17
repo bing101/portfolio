@@ -4,34 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Arjun Kashyap | Blog</title>
+    <title>Arjun Kashyap : Add Article</title>
   </head>
   <body>
-    <div class="container" >
+    <div class="container">
       <div
         class="jumbotron jumbotron-fluid"
         style="background-color: #1c1a63; color: white"
       >
         <div class="container">
           <h1 style="text-align: center; font-weight: bold" class="display-4">
-            <%= article.title %>
+            Edit Article
           </h1>
         </div>
       </div>
-      <a href="/articles/edit/<%= article.id %>" class="btn btn-secondary">
-        Edit
-      </a>
-      <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
-        <button type="submit" class="btn btn-danger">Delete</button>
+      <form action="/articles/<%=article.id %>?_method=PUT" method="POST">
+        <%- include('_form_fields') %>
       </form>
-      <a href="/" class="btn btn-info">All Articles</form> </a>
-      <hr />
-      <div class="text-muted mb-2">
-        <%= article.date.toLocaleDateString() %>
-      </div>
-      <div><%= article.description %></div>
-      <br />
-      <div><%- article.sanitizedHtml %></div>
     </div>
 
     <!-- Bootstrap css -->
