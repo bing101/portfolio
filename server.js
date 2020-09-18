@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const articlesRouter = require("./routes/articles");
-const aboutRouter = require("./routes/about");
 const Article = require("./models/article");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
@@ -29,7 +28,9 @@ app.get("/", async (req, res) => {
 });
 
 // about me section
-app.use("/about", aboutRouter);
+app.get("/about", (req, res) => {
+  res.render("about/about");
+});
 app.use("/articles", articlesRouter);
 
 app.listen(5000, () => console.log("Server Started on port 5000"));

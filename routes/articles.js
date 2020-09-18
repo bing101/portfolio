@@ -1,8 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
+const { findById } = require("../models/article");
 
+// A helper function for post and put req
+const saveArticleAndRedirect = (path) => async (req, res) => {
+  let article = req.article;
 
+  article.title = req.body.title;
+  article.description = req.body.description;
+  article.markdown = req.body.markdown;
+
+  try {
+    article = await article.save();
+
+    res.redirect("/");
+  } catch (e) {
+    res.render(`articles/${path}`, { article: article });
+  }
+};
 
 // new articles
 router.get("/new", (req, res) => {
@@ -23,21 +39,24 @@ router.get("/:slug", async (req, res) => {
 });
 
 // Add New article
-router.post("/", async (req, res) => {
-  let article = new Article({
-    title: req.body.title,
-    description: req.body.description,
-    markdown: req.body.markdown,
-  });
-  try {
-    article = await article.save();
+router.post(
+  "/",
+  async (req, res, next) => {
+    req.article = new Article();
+    next();
+  },
+  saveArticleAndRedirect("new")
+);
 
-    res.redirect(`articles/${article.slug}`);
-  } catch (e) {
-    console.log("Error");
-    res.render("articles/new", { article: article });
-  }
-});
+// Edit article route
+router.put(
+  "/:id",
+  async (req, res, next) => {
+    req.article = await Article.findById(req.params.id);
+    next();
+  },
+  saveArticleAndRedirect("edit")
+);
 
 // deleting an article
 router.delete("/:id", async (req, res) => {
