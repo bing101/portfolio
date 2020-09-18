@@ -1,16 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
 const Article = require("../models/article");
 
-// connect to db and managing deprecations
-mongoose.connect("mongodb://localhost/blog", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
 
-// Add new article
+
+// new articles
 router.get("/new", (req, res) => {
   res.render("articles/new", { article: new Article() });
 });
