@@ -29,6 +29,8 @@ app.get("/", async (req, res) => {
   res.render("articles/index.ejs", { articles: articles });
 });
 
+
+
 // about me section
 app.get("/about", (req, res) => {
   res.render("about/about");

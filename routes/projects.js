@@ -62,4 +62,11 @@ router.put(
   saveProjectAndRedirect("edit")
 );
 
+// Delete a project
+// deleting an article
+router.delete("/:id", async (req, res) => {
+  await Projects.findByIdAndDelete(req.params.id);
+  res.redirect("/");
+});
+
 module.exports = router;

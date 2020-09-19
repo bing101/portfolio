@@ -38,7 +38,11 @@
               <div class="card-text mb-2""> <%=project.content %> </div>
             </div>
             <a class="bnt btn-info" href="/projects/edit/<%= project.id %>"> Edit </a>
-          </div>
+            <form action="/projects/<%= project.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="bnt btn-danger" href="/projects/delete/<%= project.id %>"> Delete </button>
+
+              </form>
+        </div>
         </a>
 
         <% }) %>
