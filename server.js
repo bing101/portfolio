@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const path = require("path");
 const articlesRouter = require("./routes/articles");
+const projectsRouter = require("./routes/projects");
 const Article = require("./models/article");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
@@ -9,7 +9,9 @@ const mongoose = require("mongoose");
 // Ejs for markdown
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "client")));
+// app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(__dirname + "/client"));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 
@@ -32,5 +34,6 @@ app.get("/about", (req, res) => {
   res.render("about/about");
 });
 app.use("/articles", articlesRouter);
+app.use("/projects", projectsRouter);
 
 app.listen(5000, () => console.log("Server Started on port 5000"));

@@ -3,11 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Arjun Kashyap | Blog</title>
+    <link  rel="stylesheet" type="text/css" href="/client/styles/index.css" />
+    <title>Arjun Kashyap</title>
   </head>
   <body>
-    <div class="container" >
+    <div style="overflow: hidden">
+      <div class="sidebar">
+        <h1 class="header">Arjun Kashyap</h1>
+        <h4 class="sub-header">
+          Software Engineer <br />
+          ML Enthusiast <br />
+          Reader / Thinker
+        </h4>
+        <hr />
+        <a class="active" href="/">Blog</a>
+        <a href="/about">About Me</a>
+        <a href="/Projects">Projects</a>
+      </div>
+
+      <div class="content container">
+        <br />
+        
+     <div class="container" >
       <div
         class="jumbotron jumbotron-fluid"
         style="background-color: #1c1a63; color: white"
@@ -32,6 +49,8 @@
       <div><%= article.description %></div>
       <br />
       <div><%- article.sanitizedHtml %></div>
+    </div>
+      </div>
     </div>
 
     <!-- Bootstrap css -->
@@ -58,3 +77,7 @@
     ></script>
   </body>
 </html>
+
+<!-- 
+
+ -->

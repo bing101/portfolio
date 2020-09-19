@@ -3,30 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="styles/index.css" />
-    <title>Arjun Kashyap</title>
+
+    <title>Arjun Kashyap : Add Article</title>
   </head>
   <body>
-    <div style="overflow: hidden">
-      <div class="sidebar">
-        <h1 class="header">Arjun Kashyap</h1>
-        <h4 class="sub-header">
-          Software Engineer <br />
-          ML Enthusiast <br />
-          Reader / Thinkers
-        </h4>
-        <hr />
-        <a class="active" href="/">Blog</a>
-        <a href="/about">About Me</a>
-        <a href="/projects">Projects</a>
+    <div class="container">
+      <div
+        class="jumbotron jumbotron-fluid"
+        style="background-color: #1c1a63; color: white"
+      >
+        <div class="container">
+          <h1 style="text-align: center; font-weight: bold" class="display-4">
+            Add a Project
+          </h1>
+        </div>
       </div>
-
-      <div class="content container">
-        <br />
-        <a href="/about/update">here</a>
-        <h1>About ME</h1>
-        <p>This is me.</p>
-      </div>
+      <form action="/projects" method="POST">
+        <%- include('_form_fields') %>
+      </form>
     </div>
 
     <!-- Bootstrap css -->

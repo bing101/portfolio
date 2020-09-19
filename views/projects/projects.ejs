@@ -18,27 +18,26 @@
         <hr />
         <a class="active" href="/">Blog</a>
         <a href="/about">About Me</a>
-        <a href="/projects">Projects</a>
+        <a href="#contact">Projects</a>
       </div>
 
       <div class="content container">
         <br />
-        <a href="/articles/new">here</a>
-        <% articles.forEach(article => {%>
+        <a href="/projects/new">here</a>
+        <% projects.forEach(project => {%>
         <a
-          href="/articles/<%=article.slug %>"
+        target="__blank"
+          href="<%=project.link %>"
           style="text-decoration: none; color: inherit"
         >
           <div class="card mt-4">
             <div class="card-body">
-              <h1 class="blog-title"><%= article.title %></h1>
+              <h1 class="blog-title"><%= project.title %></h1>
 
-              <div class="card-subtitle text-muted mb-2">
-                <%= article.date.toLocaleDateString() %>
-              </div>
-
-              <div class="card-text mb-2"><%= article.description %></div>
+              <div class="card-text mb-2"><%= project.description %></div>
+              <div class="card-text mb-2""> <%=project.content %> </div>
             </div>
+            <a class="bnt btn-info" href="/projects/edit/<%= project.id %>"> Edit </a>
           </div>
         </a>
 

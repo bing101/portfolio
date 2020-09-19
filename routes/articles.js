@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
-const { findById } = require("../models/article");
 
 // A helper function for post and put req
 const saveArticleAndRedirect = (path) => async (req, res) => {
