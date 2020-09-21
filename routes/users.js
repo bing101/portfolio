@@ -1,12 +1,27 @@
+require("dotenv").config();
+
 const express = require("express");
 const bcrypt = require("bcrypt");
-const { route } = require("./articles");
 const router = express.Router();
-const app = express();
+const jwt = require("jsonwebtoken");
 
 const users = [];
 
-router.get("/", (req, res) => {
+// Middle ware function to verify token and grant access
+const authToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Get jwt from header
+
+  if (token == null) return res.status(401).send("You do not have the access");
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).send("Verification failed");
+    req.user = user;
+    next();
+  });
+};
+
+router.get("/", authToken, (req, res) => {
+  console.log(req.user); // user set by middleware
   res.json(users);
 });
 
@@ -37,11 +52,15 @@ router.post("/login/", async (req, res) => {
   if (user == null) return res.status(400).send("Cannot find user");
 
   try {
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      res.send("Success");
-    } else {
+    if (!(await bcrypt.compare(req.body.password, user.password))) {
       res.send("Not Allowed");
     }
+    const username = req.body.username;
+    const userObj = { name: username };
+
+    // creating jwt token
+    const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET);
+    res.send({ accessToken: accessToken });
   } catch (e) {
     console.log(e);
   }
