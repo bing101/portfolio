@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const articlesRouter = require("./routes/articles");
 const projectsRouter = require("./routes/projects");
+const usersRouter = require("./routes/users");
 const Article = require("./models/article");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 
 // Ejs for markdown
+app.use(express.json());
 app.set("view engine", "ejs");
 
 // app.use(express.static(path.join(__dirname, "client")));
@@ -29,13 +31,18 @@ app.get("/", async (req, res) => {
   res.render("articles/index.ejs", { articles: articles });
 });
 
-
-
 // about me section
 app.get("/about", (req, res) => {
   res.render("about/about");
 });
+
+// articles api
 app.use("/articles", articlesRouter);
+
+// projects api
 app.use("/projects", projectsRouter);
+
+// user auth api
+app.use("/users", usersRouter);
 
 app.listen(5000, () => console.log("Server Started on port 5000"));
