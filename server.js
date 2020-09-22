@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const articlesRouter = require("./routes/articles");
 const projectsRouter = require("./routes/projects");
-const usersRouter = require("./routes/users");
+const usersRouter = require("./routes/users").router;
 const Article = require("./models/article");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
@@ -44,5 +44,7 @@ app.use("/projects", projectsRouter);
 
 // user auth api
 app.use("/users", usersRouter);
+
+
 
 app.listen(5000, () => console.log("Server Started on port 5000"));

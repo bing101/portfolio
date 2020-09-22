@@ -5,7 +5,8 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
-const users = [];
+const Users = require("../models/user");
+const user = require("../models/user");
 
 // Middle ware function to verify token and grant access
 const authToken = (req, res, next) => {
@@ -22,7 +23,8 @@ const authToken = (req, res, next) => {
 
 router.get("/", authToken, (req, res) => {
   console.log(req.user); // user set by middleware
-  res.json(users);
+
+  res.status(200).send("Posts");
 });
 
 // Create a new user
@@ -37,7 +39,9 @@ router.post("/", async (req, res) => {
       username: username,
       password: hash,
     };
-    users.push(user);
+    let users = new Users(user);
+    users = await users.save();
+
     res.status(201).send();
   } catch (e) {
     console.log(e);
@@ -45,11 +49,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/login/", (req, res) => {
+  res.render("users/login");
+});
+
 // Login user auth
 router.post("/login/", async (req, res) => {
-  let user = users.find((user) => user.username === req.body.username);
-
-  if (user == null) return res.status(400).send("Cannot find user");
+  console.log("recieved login req");
+  // let user = users.find((user) => user.username === req.body.username);
+  let user = await Users.findOne({ username: req.body.username });
+  if (user == null) return res.status(400).redirect("login");
 
   try {
     if (!(await bcrypt.compare(req.body.password, user.password))) {
@@ -66,4 +75,4 @@ router.post("/login/", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = { router, authToken };
