@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
-const authUser = require("./users").authToken;
+const { ensureAuthenticated } = require("../config/auth");
 
 // A helper function for post and put req
 const saveArticleAndRedirect = (path) => async (req, res) => {
@@ -21,12 +21,12 @@ const saveArticleAndRedirect = (path) => async (req, res) => {
 };
 
 // new articles
-router.get("/new", authUser, (req, res) => {
+router.get("/new", ensureAuthenticated, (req, res) => {
   res.render("articles/new", { article: new Article() });
 });
 
 // edit article
-router.get("/edit/:id", authUser, async (req, res) => {
+router.get("/edit/:id", ensureAuthenticated, async (req, res) => {
   const article = await Article.findById(req.params.id);
   res.render("articles/edit", { article: article });
 });
@@ -41,7 +41,7 @@ router.get("/:slug", async (req, res) => {
 // Add New article
 router.post(
   "/",
-  authUser,
+  ensureAuthenticated,
   async (req, res, next) => {
     req.article = new Article();
     next();
@@ -52,7 +52,7 @@ router.post(
 // Edit article route
 router.put(
   "/:id",
-  authUser,
+  ensureAuthenticated,
   async (req, res, next) => {
     req.article = await Article.findById(req.params.id);
     next();
@@ -61,7 +61,7 @@ router.put(
 );
 
 // deleting an article
-router.delete("/:id", authUser, async (req, res) => {
+router.delete("/:id", ensureAuthenticated, async (req, res) => {
   await Article.findByIdAndDelete(req.params.id);
   res.redirect("/");
 });

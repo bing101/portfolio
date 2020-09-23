@@ -2,10 +2,18 @@ const express = require("express");
 const app = express();
 const articlesRouter = require("./routes/articles");
 const projectsRouter = require("./routes/projects");
-const usersRouter = require("./routes/users").router;
+const usersRouter = require("./routes/users");
 const Article = require("./models/article");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
+const flash = require("connect-flash");
+const session = require("express-session");
+const passport = require("passport");
+
+app.use(express.urlencoded({ extended: false }));
+
+// passport config
+require("./config/passport")(passport);
 
 // Ejs for markdown
 app.use(express.json());
@@ -14,8 +22,30 @@ app.set("view engine", "ejs");
 // app.use(express.static(path.join(__dirname, "client")));
 app.use(express.static(__dirname + "/client"));
 
-app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
+
+// Session
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // connect to db and managing deprecations
 // Name of our database is blog
@@ -44,7 +74,5 @@ app.use("/projects", projectsRouter);
 
 // user auth api
 app.use("/users", usersRouter);
-
-
 
 app.listen(5000, () => console.log("Server Started on port 5000"));

@@ -87,7 +87,7 @@ div.content {
     width: 100%;
     height: auto;
     position: relative;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     padding-bottom: 0;
   }
   .sidebar a {

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Projects = require("../models/projects");
-const authUser = require("./users").authToken;
+const { ensureAuthenticated } = require("../config/auth");
 
 // get all articles
 router.get("/", async (req, res) => {
@@ -10,13 +10,13 @@ router.get("/", async (req, res) => {
 });
 
 // Get form for adding new project
-router.get("/new", authUser, (req, res) => {
+router.get("/new", ensureAuthenticated, (req, res) => {
   project = new Projects();
   res.render("projects/new", { project: project });
 });
 
 // edit article
-router.get("/edit/:id", authUser, async (req, res) => {
+router.get("/edit/:id", ensureAuthenticated, async (req, res) => {
   const project = await Projects.findById(req.params.id);
   res.render("projects/edit", { project: project });
 });
@@ -46,7 +46,7 @@ const saveProjectAndRedirect = (path) => async (req, res) => {
 // Add New project
 router.post(
   "/",
-  authUser,
+  ensureAuthenticated,
   async (req, res, next) => {
     req.project = new Projects();
     next();
@@ -57,7 +57,7 @@ router.post(
 // Edit project
 router.put(
   "/:id",
-  authUser,
+  ensureAuthenticated,
   async (req, res, next) => {
     req.project = await Projects.findById(req.params.id);
     next();
@@ -67,7 +67,7 @@ router.put(
 
 // Delete a project
 // deleting an article
-router.delete("/:id", authUser, async (req, res) => {
+router.delete("/:id", ensureAuthenticated, async (req, res) => {
   await Projects.findByIdAndDelete(req.params.id);
   res.redirect("/");
 });

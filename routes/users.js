@@ -7,80 +7,34 @@ const jwt = require("jsonwebtoken");
 
 const Users = require("../models/user");
 const passport = require("passport");
+const { response } = require("express");
+const { ensureAuthenticated } = require("../config/auth");
 
-const initializePassport = require("./passport-config");
-
-initializePassport(passport);
-
-// Middle ware function to verify token and grant access
-const authToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // Get jwt from header
-
-  if (token == null) return res.status(401).send("You do not have the access");
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).send("Verification failed");
-    req.user = user;
-    next();
-  });
-};
-
-router.get("/", authToken, (req, res) => {
-  console.log(req.user); // user set by middleware
-
-  res.status(200).send("Posts");
-});
-
-// Create a new user
-// This will be removed in the fututre
-router.post("/", async (req, res) => {
-  const username = req.body.username;
-  const pass = req.body.password;
-  try {
-    const salt = await bcrypt.genSalt(); // Generate salt
-    const hash = await bcrypt.hash(pass, salt); // Hashed Password
-    const user = {
-      username: username,
-      password: hash,
-    };
-    let users = new Users(user);
-    users = await users.save();
-
-    res.status(201).send();
-  } catch (e) {
-    console.log(e);
-    res.status(500).send();
-  }
-});
-
-router.get("/login/", (req, res) => {
+router.get("/login", (req, res) => {
   res.render("users/login");
 });
 
-// Login user auth
-router.post("/login/", async (req, res) => {
-  // let user = users.find((user) => user.username === req.body.username);
-  let user = await Users.findOne({ username: req.body.username });
-  console.log(user);
-  if (user == null) return res.status(400).json({ username: "not found" });
-
-  try {
-    if (!(await bcrypt.compare(req.body.password, user.password))) {
-      return res.status(401).json({ passwordincorrect: "Password incorrect" });
-    }
-    const username = req.body.username;
-    const userObj = { name: username };
-
-    // creating jwt token
-    const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET);
-    return res.send({ accessToken: accessToken });
-  } catch (e) {
-    console.log(e);
-  }
+router.post("/login", (req, res, next) => {
+  console.log("recieved a login req");
+  console.log(req.body.username);
+  passport.authenticate("local", {
+    successRedirect: "/users/admin/",
+    failureRedirect: "/users/login",
+    failureFlash: true,
+  })(req, res, next);
 });
 
-router.get("/admin/", (req, res) => {
-  res.send("admin");
+// Display dashboard
+router.get("/admin/", ensureAuthenticated, (req, res) => {
+  res.render("users/dashboard");
 });
 
-module.exports = { router, authToken };
+// Logout admin
+router.get("/logout", (req, res) => {
+  console.log("logout req");
+  req.logout();
+  req.flash("success_msg", "Logged out");
+  res.redirect("/users/login");
+});
+
+module.exports = router;
