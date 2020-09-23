@@ -6,7 +6,11 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 const Users = require("../models/user");
-const user = require("../models/user");
+const passport = require("passport");
+
+const initializePassport = require("./passport-config");
+
+initializePassport(passport);
 
 // Middle ware function to verify token and grant access
 const authToken = (req, res, next) => {
@@ -55,24 +59,28 @@ router.get("/login/", (req, res) => {
 
 // Login user auth
 router.post("/login/", async (req, res) => {
-  console.log("recieved login req");
   // let user = users.find((user) => user.username === req.body.username);
   let user = await Users.findOne({ username: req.body.username });
-  if (user == null) return res.status(400).redirect("login");
+  console.log(user);
+  if (user == null) return res.status(400).json({ username: "not found" });
 
   try {
     if (!(await bcrypt.compare(req.body.password, user.password))) {
-      res.send("Not Allowed");
+      return res.status(401).json({ passwordincorrect: "Password incorrect" });
     }
     const username = req.body.username;
     const userObj = { name: username };
 
     // creating jwt token
     const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET);
-    res.send({ accessToken: accessToken });
+    return res.send({ accessToken: accessToken });
   } catch (e) {
     console.log(e);
   }
+});
+
+router.get("/admin/", (req, res) => {
+  res.send("admin");
 });
 
 module.exports = { router, authToken };

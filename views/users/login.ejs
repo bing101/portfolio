@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <form id="admin-login">
+      <form action="/" id="admin-login">
         <div class="form-group">
           <label for="username address">Username</label>
           <input
@@ -40,8 +40,17 @@
             placeholder="Password"
           />
         </div>
-
-        <button type="submit" id="form-submit" class="btn btn-primary">
+        <small
+          id="msg"
+          class="form-text"
+          style="color: red; text-align: center"
+        ></small>
+        <br />
+        <button
+          type="submit"
+          id="form-submit"
+          class="btn btn-primary btn-block"
+        >
           Submit
         </button>
       </form>
@@ -74,17 +83,15 @@
       // form submit
 
       const postData = async (username, password) => {
-        const res = await fetch("https://192.168.43.56/users/login", {
+        const res = await fetch("/users/login", {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({ username: username, password: password }),
         });
 
-        return res.json();
+        return res;
       };
 
       const submit = document
@@ -95,8 +102,13 @@
           const username = document.getElementById("username").value;
           const password = document.getElementById("password").value;
 
-          postData(username, password).then((data) => {
-            console.log(data);
+          postData(username, password).then((res) => {
+            const msg = document.getElementById("msg");
+
+            if (res.status === 400) msg.innerHTML = "Username not found";
+            else if (res.status === 401) msg.innerHTML = "Invalid Password";
+
+            console.log(res.headers);
           });
         });
     </script>
