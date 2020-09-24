@@ -1,22 +1,20 @@
 require("dotenv").config();
 
 const express = require("express");
-const bcrypt = require("bcrypt");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-
+const Article = require("../models/article");
+const Project = require("../models/projects");
 const Users = require("../models/user");
 const passport = require("passport");
 const { response } = require("express");
 const { ensureAuthenticated } = require("../config/auth");
+const bcrypt = require("bcrypt");
 
 router.get("/login", (req, res) => {
   res.render("users/login");
 });
 
 router.post("/login", (req, res, next) => {
-  console.log("recieved a login req");
-  console.log(req.body.username);
   passport.authenticate("local", {
     successRedirect: "/users/admin/",
     failureRedirect: "/users/login",
@@ -25,13 +23,18 @@ router.post("/login", (req, res, next) => {
 });
 
 // Display dashboard
-router.get("/admin/", ensureAuthenticated, (req, res) => {
-  res.render("users/dashboard");
+router.get("/admin/", ensureAuthenticated, async (req, res) => {
+  const articles = await Article.find().sort({ date: "desc" }); // Get all articles in the db
+  res.render("users/dashboard", { articles: articles });
+});
+
+router.get("/admin/projects", ensureAuthenticated, async (req, res) => {
+  let projects = await Project.find().sort({ date: "desc" });
+  res.render("users/projects", { projects: projects });
 });
 
 // Logout admin
 router.get("/logout", (req, res) => {
-  console.log("logout req");
   req.logout();
   req.flash("success_msg", "Logged out");
   res.redirect("/users/login");

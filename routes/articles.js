@@ -14,7 +14,7 @@ const saveArticleAndRedirect = (path) => async (req, res) => {
   try {
     article = await article.save();
 
-    res.redirect("/");
+    res.redirect("/users/admin");
   } catch (e) {
     res.render(`articles/${path}`, { article: article });
   }
@@ -63,7 +63,7 @@ router.put(
 // deleting an article
 router.delete("/:id", ensureAuthenticated, async (req, res) => {
   await Article.findByIdAndDelete(req.params.id);
-  res.redirect("/");
+  res.redirect("/users/admin");
 });
 
 module.exports = router;

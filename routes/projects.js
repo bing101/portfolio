@@ -30,14 +30,11 @@ const saveProjectAndRedirect = (path) => async (req, res) => {
   project.description = req.body.description;
   project.content = req.body.content;
 
-  console.log("project tile");
-  console.log(project.title);
   try {
     project = await project.save();
 
-    res.redirect("/projects");
+    res.redirect("/users/admin/projects");
   } catch (e) {
-    console.log("Error !!");
     console.log(e);
     res.render(`projects/${path}`, { project: project });
   }

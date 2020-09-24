@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
-
+const env = require("dotenv");
 app.use(express.urlencoded({ extended: false }));
 
 // passport config
@@ -47,13 +47,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-// connect to db and managing deprecations
-// Name of our database is blog
-mongoose.connect("mongodb://localhost/blog", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("Database Connected"));
 
 // home page
 app.get("/", async (req, res) => {

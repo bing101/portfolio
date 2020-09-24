@@ -13,19 +13,14 @@ module.exports = function (passport) {
       },
       async (username, password, done) => {
         // Match username
-        console.log("authenticating");
         let user = await User.findOne({ username: username });
-        console.log("Found username ? ", username);
-        console.log(user);
+
         if (user == null)
           return done(null, false, { message: "Username not found" });
-        console.log("user found");
         try {
           if (!(await bcrypt.compare(password, user.password))) {
             return done(null, false, { message: "Password mismatch" }); // Pass incorrct
           } else {
-            console.log("everything seems fine here");
-            console.log("match");
             return done(null, user);
           }
         } catch (e) {
