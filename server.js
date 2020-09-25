@@ -58,8 +58,13 @@ mongoose
 
 // home page
 app.get("/", async (req, res) => {
-  const articles = await Article.find().sort({ date: "desc" }); // Get all articles in the db
-  res.render("articles/index.ejs", { articles: articles });
+  console.log("Recieved a get request");
+  try {
+    const articles = await Article.find().sort({ date: "desc" }); // Get all articles in the db
+    res.render("articles/index.ejs", { articles: articles });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // about me section
