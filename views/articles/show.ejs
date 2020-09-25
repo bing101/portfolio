@@ -3,8 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link  rel="stylesheet" type="text/css" href="/client/styles/index.css" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Kanit&display=swap"
+    rel="stylesheet"
+  />
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>Arjun Kashyap</title>
+
+    <style>
+      :root {
+  --bg-main: hsl(204, 40%, 57%);
+  --bg-sc: white;
+  --txt-sc: white;
+  --txt-pm: hsl(204, 40%, 57%);
+  --clr-dark: #1c1a63;
+  /* #47d381; */
+  /* hsl(187, 63%, 71%); */
+}
+
+body {
+  margin: 0;
+  font-family: "Kanit", sans-serif;
+  height: 100%;
+}
+
+.header {
+  font-family: "Kanit", sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 4rem;
+  padding: 1rem;
+  /* margin-left: 1rem; */
+  text-align: center;
+}
+
+.sub-header {
+  /* font-weight: bold; */
+  color: var(--txt-sc);
+  font-size: 0.8rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.sidebar {
+  padding: 0;
+  width: 350px;
+  background-color: var(--bg-main);
+  /* position: fixed; */
+  height: 100%;
+  float: left;
+  margin-bottom: -5000px; /* any large number will do */
+  padding-bottom: 5000px;
+}
+
+.sidebar a {
+  display: block;
+  color: var(--txt-sc);
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #1c1a63;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: var(--bg-sc);
+  color: var(--clr-dark);
+}
+
+div.content {
+  margin-left: 350px;
+  padding: 1px 16px;
+  font-family: "Kanit", sans-serif;
+  color: #515151;
+  font-size: 18px;
+  height: auto
+}
+
+.icons-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#read-more-btn {
+  float: left;
+  background-color: var(--bg-main);
+  border-color: cornflowerblue;
+  padding: 0.3rem;
+  font-size: 12px;
+}
+
+.blog-title {
+  color: var(--bg-main);
+  text-decoration-color: none;
+}
+
+.blog-title:hover {
+  color: var(--clr-dark);
+}
+
+@media screen and (max-width: 1000px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+  }
+
+  .sidebar a {
+    float: left;
+  }
+  .title{
+    margin-top: 2rem;
+  }
+  .nav-links {
+    flex-direction: row;
+  }
+
+  div.content {
+    margin-left: 0;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+    </style>
   </head>
   <body>
     <div style="overflow: hidden">
@@ -13,28 +157,48 @@
         <h4 class="sub-header">
           Software Engineer <br />
           ML Enthusiast <br />
-          Reader / Thinker
+          Reader / Thinkers
         </h4>
         <hr />
-        <a class="active" href="/">Blog</a>
-        <a href="/about">About Me</a>
-        <a href="/Projects">Projects</a>
+        <div class="nav-links">
+          <a class="active" href="/">Blog</a>
+          <a href="/about">About Me</a>
+          <a href="/projects">Projects</a>
+        </div>
+        <br />
+        <div class="icons-container">
+          <a
+            href="mailto:arj.kashyap123@gmail.com"
+            class="btn-social btn-outline"
+            title="E-Mail me"
+          >
+            <i class="fa fa-at fa-2x"></i>
+          </a>
+          <a href="https://www.github.com/bing101" target="_blank">
+            <i class="fa fa-github fa-2x"></i>
+          </a>
+          <a href="https://twitter.com/arjun_pahadii" target="_blank">
+            <i class="fa fa-twitter fa-2x"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/arjun-kashyap-099384116/"
+            target="_blank"
+          >
+            <i class="fa fa-linkedin fa-2x"></i>
+          </a>
+        </div>
       </div>
 
       <div class="content container">
         <br />
         
      <div class="container" >
-      <div
-        class="jumbotron jumbotron-fluid"
-        style="background-color: #1c1a63; color: white"
-      >
+    
         <div class="container">
-          <h1 style="text-align: center; font-weight: bold" class="display-4">
+          <h1 style="text-align: center; font-weight: bold" class="title display-4">
             <%= article.title %>
           </h1>
         </div>
-      </div>
       <!-- <a href="/articles/edit/<%= article.id %>" class="btn btn-secondary">
         Edit
       </a>
