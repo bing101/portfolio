@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const env = require("dotenv");
+const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: false }));
 
 // passport config
@@ -75,4 +76,4 @@ app.use("/projects", projectsRouter);
 // user auth api
 app.use("/users", usersRouter);
 
-app.listen(5000, () => console.log("Server Started on port 5000"));
+app.listen(PORT, () => console.log("Server Started on port 5000"));
