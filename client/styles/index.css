@@ -41,6 +41,7 @@ body {
   float: left;
   margin-bottom: -5000px; /* any large number will do */
   padding-bottom: 5000px;
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .sidebar a {
@@ -67,7 +68,12 @@ div.content {
   font-family: "Kanit", sans-serif;
   color: #515151;
   font-size: 18px;
+
   height: 1000px;
+}
+
+.article-container {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .icons-container {
@@ -108,6 +114,12 @@ div.content {
     position: relative;
     margin-bottom: 1rem;
     padding-bottom: 0;
+  }
+
+  .nav-btn {
+    border: 0.3px solid white;
+    border-radius: 8px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
   }
 
   .sidebar a {

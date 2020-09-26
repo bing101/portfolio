@@ -25,9 +25,9 @@
         </h4>
         <hr />
         <div class="nav-links">
-          <a href="/">Blog</a>
-          <a href="/about">About Me</a>
-          <a class="active" href="/projects">Projects</a>
+          <a class="nav-btn" href="/">Blog</a>
+          <a class="nav-btn" href="/about">About Me</a>
+          <a class="nav-btn active" href="/projects">Projects</a>
         </div>
         <br />
         <div class="icons-container">
@@ -61,18 +61,13 @@
           href="<%=project.link %>"
           style="text-decoration: none; color: inherit"
         >
-          <div class="card mt-4">
+          <div class="article-container card mt-4">
             <div class="card-body">
               <h1 class="blog-title"><%= project.title %></h1>
 
               <div class="card-text mb-2"><%= project.description %></div>
               <div class="card-text mb-2"><%=project.content %></div>
             </div>
-            <!-- <a class="bnt btn-info" href="/projects/edit/<%= project.id %>"> Edit </a>
-            <form action="/projects/<%= project.id %>?_method=DELETE" method="POST" class="d-inline">
-                <button type="submit" class="bnt btn-danger" href="/projects/delete/<%= project.id %>"> Delete </button>
-
-              </form> -->
           </div>
         </a>
 

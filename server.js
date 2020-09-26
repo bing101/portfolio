@@ -58,7 +58,6 @@ mongoose
 
 // home page
 app.get("/", async (req, res) => {
-  console.log("Recieved a get request");
   try {
     const articles = await Article.find().sort({ date: "desc" }); // Get all articles in the db
     res.render("articles/index.ejs", { articles: articles });
