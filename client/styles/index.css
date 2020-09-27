@@ -62,7 +62,7 @@ body {
 }
 
 div.content {
-  margin-left: 350px;
+  margin-left: 360px;
   width: auto;
   padding: 1px 16px;
   font-family: "Kanit", sans-serif;
@@ -131,7 +131,7 @@ div.content {
   }
 
   div.content {
-    margin-left: 0;
+    margin: 0;
     height: 100%;
   }
 }
