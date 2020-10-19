@@ -7,11 +7,15 @@
   /* #47d381; */
   /* hsl(187, 63%, 71%); */
 }
+.html {
+  height: 100%;
+}
 
 body {
   margin: 0;
   font-family: "Kanit", sans-serif;
   height: 100%;
+  position: relative;
 }
 
 .header {
@@ -36,11 +40,16 @@ body {
   padding: 0;
   width: 350px;
   background-color: var(--bg-main);
+  position: absolute;
+  min-height: 100%;
   /* position: fixed; */
-  height: 100%;
+  /* height: 100%; */
+  /* height: 100vh; */
   float: left;
-  margin-bottom: -5000px; /* any large number will do */
-  padding-bottom: 5000px;
+  /* margin-bottom: -5000px;
+  padding-bottom: 5000px; */
+  overflow-y: auto;
+
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
